@@ -1,0 +1,38 @@
+@startuml HealthTrackingSystemSchema
+
+!define table(x) class x << (T,#FFAAAA) >>
+
+' Define User table
+table(User) {
+    + _id: ObjectId
+    + name: String
+    + email: String
+    + password: String
+    + createdAt: Date
+    + updatedAt: Date
+}
+
+' Define HealthData table
+table(HealthData) {
+    + _id: ObjectId
+    + userId: ObjectId <<FK>>
+    + sugar: Number
+    + bloodPressure: String
+    + heartRate: Number
+    + createdAt: Date
+}
+
+' Define Reminder table
+table(Reminder) {
+    + _id: ObjectId
+    + userId: ObjectId <<FK>>
+    + text: String
+    + reminderDate: Date
+    + createdAt: Date
+}
+
+' Relationships
+User "1" -- "0..*" HealthData : has >
+User "1" -- "0..*" Reminder : creates >
+
+@enduml
